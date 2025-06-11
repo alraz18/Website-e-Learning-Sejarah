@@ -13,6 +13,10 @@ body {
   padding-top: 70px;
 }
 
+.bg-custom {
+  background: rgb(255, 144, 17);
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(50px);
@@ -236,12 +240,11 @@ nav#nav-example h4 {
 
 .card-body a {
   text-decoration: none;
-  color: black;
+  color: #ffffff;
 }
 
 .card-body a:hover {
-  border-bottom: 2px solid rgb(255, 144, 17);
-  color: rgb(255, 144, 17);
+  border-bottom: 2px solid #ffffff;
 }
 .card-title {
   font-size: clamp(1rem, 3vw, 1.25rem);
