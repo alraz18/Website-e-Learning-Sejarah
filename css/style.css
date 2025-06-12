@@ -257,7 +257,7 @@ nav#nav-example h4 {
   width: 115px;
 }
 
-.card-body {
+/* .card-body {
   position: relative;
   padding-bottom: 3rem;
 }
@@ -266,7 +266,7 @@ nav#nav-example h4 {
   position: absolute;
   bottom: 1rem;
   right: 1rem;
-}
+} */
 
 #scrollToTopBtn {
   position: fixed;

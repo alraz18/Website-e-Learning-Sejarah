@@ -135,3 +135,111 @@ buttons.forEach((button, index) => {
     updateButton(button, progress[id]);
   });
 });
+
+// Quiz singkat
+const answerKey = {
+  "materi-1": ["b", "c", "c"],
+  "materi-2": ["c", "d", "c"],
+  "materi-3": ["c", "b", "c"],
+  "materi-4": ["c", "c", "c"],
+};
+
+function showProgressInfo(materiId, score, total, percentage) {
+  const progressInfo = document.querySelector(
+    `[data-materi="${materiId}"] #progressInfo`
+  );
+  if (progressInfo) {
+    progressInfo.innerText = `Score: ${score}/${total} (${percentage}%)`;
+  }
+}
+
+function checkAnswers() {
+  const quizContainer = document.getElementById("materiQuiz");
+  const materiId = quizContainer.getAttribute("data-materi");
+  const correctAnswers = answerKey[materiId];
+
+  const resultBox = document.getElementById("resultBox");
+  const progressBar = document.getElementById("progressBar");
+  const progressSection = document.getElementById("progressSection");
+
+  let score = 0;
+  correctAnswers.forEach((answer, index) => {
+    const selected = document.querySelector(`input[name="q${index}"]:checked`);
+    if (selected && selected.value === answer) {
+      score++;
+    }
+  });
+
+  const total = correctAnswers.length;
+  const percentage = Math.round((score / total) * 100);
+
+  resultBox.classList.remove("d-none", "alert-success", "alert-danger");
+  resultBox.innerText = `Kamu menjawab ${score} dari ${total} soal dengan benar.`;
+  resultBox.classList.add(score === total ? "alert-success" : "alert-danger");
+
+  progressSection.classList.remove("d-none");
+  progressBar.style.width = percentage + "%";
+  progressBar.innerText = percentage + "%";
+  progressBar.classList.remove("bg-success", "bg-warning", "bg-danger");
+
+  if (percentage === 100) {
+    progressBar.classList.add("bg-success");
+  } else if (percentage >= 50) {
+    progressBar.classList.add("bg-warning");
+  } else {
+    progressBar.classList.add("bg-danger");
+  }
+
+  localStorage.setItem(
+    `progress-${materiId}`,
+    JSON.stringify({ score, total, percentage })
+  );
+
+  // Tampilkan info di bawah quiz dan juga di kartu jika ada
+  showProgressInfo(materiId, score, total, percentage);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Cek dan tampilkan progress untuk quiz halaman ini (jika ada)
+  const quizContainer = document.getElementById("materiQuiz");
+  if (quizContainer) {
+    const materiId = quizContainer.getAttribute("data-materi");
+    const saved = localStorage.getItem(`progress-${materiId}`);
+    if (saved) {
+      const { score, total, percentage } = JSON.parse(saved);
+
+      const resultBox = document.getElementById("resultBox");
+      const progressBar = document.getElementById("progressBar");
+      const progressSection = document.getElementById("progressSection");
+
+      resultBox.classList.remove("d-none", "alert-success", "alert-danger");
+      resultBox.innerText = `Terakhir kamu menjawab ${score} dari ${total} soal dengan benar.`;
+      resultBox.classList.add(
+        percentage === 100 ? "alert-success" : "alert-danger"
+      );
+
+      progressSection.classList.remove("d-none");
+      progressBar.style.width = percentage + "%";
+      progressBar.innerText = percentage + "%";
+      progressBar.classList.add(
+        percentage === 100
+          ? "bg-success"
+          : percentage >= 50
+          ? "bg-warning"
+          : "bg-danger"
+      );
+
+      showProgressInfo(materiId, score, total, percentage);
+    }
+  }
+
+  // Tampilkan semua progress di halaman daftar materi (jika ada)
+  document.querySelectorAll("[data-materi]").forEach((el) => {
+    const materiId = el.getAttribute("data-materi");
+    const saved = localStorage.getItem(`progress-${materiId}`);
+    if (saved) {
+      const { score, total, percentage } = JSON.parse(saved);
+      showProgressInfo(materiId, score, total, percentage);
+    }
+  });
+});

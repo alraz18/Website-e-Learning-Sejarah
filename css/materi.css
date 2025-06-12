@@ -114,6 +114,17 @@ h4 {
   transform: scale(1.1);
 }
 
+form .custom-btn {
+  background-color: rgb(255, 144, 17);
+  border: none;
+  color: white;
+}
+
+form .custom-btn:hover {
+  background-color: rgb(230, 130, 15);
+  color: white;
+}
+
 #scrollToTopBtn {
   position: fixed;
   bottom: 40px;
