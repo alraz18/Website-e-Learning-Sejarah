@@ -79,7 +79,7 @@ nav#nav-example h4 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  background: linear-gradient(to right, rgb(255, 144, 17), rgb(255, 217, 172));
+  background: linear-gradient(to right, rgb(255, 144, 17) 60%, rgb(255, 217, 172));
   border-radius: 20px;
   box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
   padding: 0 1rem;
@@ -256,17 +256,6 @@ nav#nav-example h4 {
 .card button {
   width: 115px;
 }
-
-/* .card-body {
-  position: relative;
-  padding-bottom: 3rem;
-}
-
-.selesai-btn {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-} */
 
 #scrollToTopBtn {
   position: fixed;
