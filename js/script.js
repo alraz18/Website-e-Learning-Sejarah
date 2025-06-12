@@ -195,7 +195,7 @@ function checkAnswers() {
     JSON.stringify({ score, total, percentage })
   );
 
-  // Tampilkan info di bawah quiz dan juga di kartu jika ada
+
   showProgressInfo(materiId, score, total, percentage);
 }
 
